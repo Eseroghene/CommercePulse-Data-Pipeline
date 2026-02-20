@@ -1,0 +1,2 @@
+report_date,total_orders,total_payments,total_refunds,orders_missing_customer_id,orders_missing_amount,payments_missing_order_id,refunds_missing_payment_id,orphan_payments,orphan_refunds,payments_over_7_days,payments_over_30_days,avg_days_to_payment,gross_revenue,total_refunded,net_revenue,payment_success_rate,refund_rate
+2026-02-20 15:11:41 UTC,560,360,1,279,25,1,1,251,0,49,44,-9.24,5145000.0,25000.0,5120000.0,0.7472,0.0049

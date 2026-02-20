@@ -1,0 +1,43 @@
+============================================================
+DATA QUALITY REPORT
+============================================================
+
+Fetching data from MongoDB...
+  Orders: 560 | Payments: 360 | Refunds: 1
+
+1. DATA COMPLETENESS
+------------------------------------------------------------
+  Orders missing customer_id:    279
+  Orders with zero amount:       25
+  Payments missing order_id:     1
+  Refunds missing payment_id:    1
+
+2. ORPHAN RECORDS
+------------------------------------------------------------
+  Payments without matching order:  251
+  Refunds without matching payment: 0
+
+3. LATE ARRIVAL DETECTION
+------------------------------------------------------------
+  Payments arriving > 7 days after order:  49
+  Payments arriving > 30 days after order: 44
+  Average days from order to payment:      -9.24
+
+4. REVENUE INTEGRITY
+------------------------------------------------------------
+  Gross Revenue:          $5,145,000.00
+  Total Refunded:         $25,000.00
+  Net Revenue:            $5,120,000.00
+  Payment Success Rate:   74.72%
+  Refund Rate:            0.49%
+
+5. PAYMENT STATUS BREAKDOWN
+------------------------------------------------------------
+  success           269 ( 74.7%)
+  failed             91 ( 25.3%)
+
+6. VENDOR BREAKDOWN
+------------------------------------------------------------
+  unknown           400 orders
+  vendor_b          159 orders
+  vendor_a            1 orders
