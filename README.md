@@ -1,7 +1,7 @@
 cat > README.md << 'ENDOFFILE'
 # CommercePulse Data Pipeline
 
-> Building a reliable analytics platform from legacy data and live events
+> Building a reliable analytics platform from historical data and live events
 
 ## Overview
 
@@ -142,16 +142,16 @@ Reports saved to `reports/quality_report_YYYY-MM-DD.txt`
 ```
 commercepulse/
 ├── data/
-│   ├── bootstrap/          # Historical JSON exports
-│   └── live_events/        # Generated live events
+│   ├── bootstrap/          
+│   └── live_events/        
 ├── src/
-│   ├── bootstrap_loader.py # Phase 1: Historical data → MongoDB
+│   ├── bootstrap_loader.py 
 │   ├── live_event_generator.py
-│   ├── live_event_loader.py # Phase 2: Live events → MongoDB
-│   ├── transformer.py      # Pandas normalization
-│   ├── bq_loader.py        # Load to BigQuery
-│   └── quality_report.py   # Data quality checks
-├── reports/                # Quality reports
+│   ├── live_event_loader.py 
+│   ├── transformer.py      
+│   ├── bq_loader.py        
+│   └── quality_report.py   
+├── reports/                
 └── README.md
 ```
 
