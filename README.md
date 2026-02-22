@@ -1,4 +1,3 @@
-cat > README.md << 'ENDOFFILE'
 # CommercePulse Data Pipeline
 
 > Building a reliable analytics platform from historical data and live events
