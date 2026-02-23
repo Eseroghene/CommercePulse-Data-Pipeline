@@ -226,6 +226,28 @@ def run_transformation():
 
     return orders_df, payments_df, refunds_df, daily_df
 
+# save transformed dataframes to warehouse folder
+def save_dataframes(orders_df, payments_df, refunds_df, daily_df):
+    warehouse_dir = Path("warehouse/facts")
+    warehouse_dir.mkdir(parents=True, exist_ok=True)
+    
+    print("\nSaving fact tables to warehouse...")
+    
+    orders_df.to_csv(warehouse_dir / "fact_orders.csv", index=False)
+    print(f"  ✓ fact_orders.csv ({len(orders_df)} rows)")
+    
+    payments_df.to_csv(warehouse_dir / "fact_payments.csv", index=False)
+    print(f"  ✓ fact_payments.csv ({len(payments_df)} rows)")
+    
+    refunds_df.to_csv(warehouse_dir / "fact_refunds.csv", index=False)
+    print(f"  ✓ fact_refunds.csv ({len(refunds_df)} rows)")
+    
+    daily_df.to_csv(warehouse_dir / "fact_order_daily.csv", index=False)
+    print(f"  ✓ fact_order_daily.csv ({len(daily_df)} rows)")
+    
+    print(f"\nFact tables saved to: {warehouse_dir.absolute()}")
+
+
 
 if __name__ == "__main__":
     run_transformation()

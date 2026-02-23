@@ -141,12 +141,12 @@ Reports saved to `reports/quality_report_YYYY-MM-DD.txt`
 ```
 CommercePulse-Data-Pipeline/
 ├── data/
-│   ├── bootstrap/             
+│   ├── bootstrap/              # Historical JSON exports (2023)
 │   │   ├── orders_2023.json
 │   │   ├── payments_2023.json
 │   │   ├── shipments_2023.json
 │   │   └── refunds_2023.json
-│   └── live_events/            
+│   └── live_events/            # Generated live event streams
 │       └── YYYY-MM-DD/
 │           └── events.jsonl
 │
@@ -161,13 +161,17 @@ CommercePulse-Data-Pipeline/
 │
 ├── warehouse/
 │   ├── dimensions/             
-│   ├── dim_date.csv        
-│   ├── dim_customer.csv    
-│   └── dim_product.csv     
-│   
+│   │   ├── dim_date.csv        
+│   │   ├── dim_customer.csv    
+│   │   └── dim_product.csv     
+│   └── facts/                  
+│       ├── fact_orders.csv     
+│       ├── fact_payments.csv   
+│       ├── fact_refunds.csv    
+│       └── fact_order_daily.csv
 │
-├── reports/ 
-|   ├── Transformed_data         
+├── reports/
+|   ├──  Transformed data               
 │   ├── quality_report_YYYY-MM-DD.txt  
 │   └── quality_report_YYYY-MM-DD.csv  
 │
