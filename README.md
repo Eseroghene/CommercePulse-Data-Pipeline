@@ -139,22 +139,45 @@ Reports saved to `reports/quality_report_YYYY-MM-DD.txt`
 
 ## Project Structure
 ```
-commercepulse/
+CommercePulse-Data-Pipeline/
 ├── data/
-│   ├── bootstrap/          
-│   └── live_events/        
+│   ├── bootstrap/             
+│   │   ├── orders_2023.json
+│   │   ├── payments_2023.json
+│   │   ├── shipments_2023.json
+│   │   └── refunds_2023.json
+│   └── live_events/            
+│       └── YYYY-MM-DD/
+│           └── events.jsonl
+│
 ├── src/
-│   ├── bootstrap_loader.py 
-│   ├── live_event_generator.py
-│   ├── live_event_loader.py 
-│   ├── transformer.py      
-│   ├── bq_loader.py        
-│   └── quality_report.py   
-├── reports/                
-└── README.md
+│   ├── bootstrap_loader.py     
+│   ├── live_event_generator.py 
+│   ├── live_event_loader.py    
+│   ├── transformer.py          
+│   ├── bq_loader.py            
+│   ├── populate_dimensions.py  
+│   └── quality_report.py       
+│
+├── warehouse/
+│   ├── dimensions/             
+│   ├── dim_date.csv        
+│   ├── dim_customer.csv    
+│   └── dim_product.csv     
+│   
+│
+├── reports/ 
+|   ├── Transformed_data         
+│   ├── quality_report_YYYY-MM-DD.txt  
+│   └── quality_report_YYYY-MM-DD.csv  
+│
+├── keys/                       
+│   └── commercepulse-sa-key.json      
+├── .env                        
+├── .gitignore                  
+├── LICENSE                     
+└── README.md                   
 ```
-
----
 
 ## Results
 
