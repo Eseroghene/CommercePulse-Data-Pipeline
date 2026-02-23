@@ -1,8 +1,10 @@
 
+
 import pandas as pd
 from pymongo import MongoClient
 from datetime import datetime, timezone
 from dotenv import load_dotenv
+from pathlib import Path
 import os
 
 load_dotenv()
@@ -47,7 +49,6 @@ def normalize_payments(events):
     for event in events:
         payload = event.get("payload", {})
         
-        # Match actual payment structure
         payment_id = (payload.get("transaction_id") or 
                      payload.get("payment_id") or 
                      payload.get("id") or 
@@ -55,7 +56,6 @@ def normalize_payments(events):
         
         order_id = payload.get("order_id") or payload.get("orderId")
         
-        # Check all possible amount fields
         amount = (payload.get("amountPaid") or 
                  payload.get("amount") or 
                  payload.get("payment_amount") or 
@@ -63,10 +63,8 @@ def normalize_payments(events):
         
         status = payload.get("payment_status") or payload.get("status") or payload.get("state")
         
-        # Normalize status to lowercase
         if status:
             status = status.lower()
-            
             if status in ["failed", "fail", "error"]:
                 status = "failed"
             elif status in ["success", "successful", "completed", "paid"]:
@@ -167,6 +165,28 @@ def build_fact_order_daily(orders_df, payments_df, refunds_df):
     return pd.DataFrame(results)
 
 
+def save_dataframes(orders_df, payments_df, refunds_df, daily_df):
+    """Save transformed DataFrames to CSV files"""
+    output_dir = Path("reports/transformed_data")
+    output_dir.mkdir(parents=True, exist_ok=True)
+    
+    print("\nSaving transformed data to CSV...")
+    
+    orders_df.to_csv(output_dir / "fact_orders.csv", index=False)
+    print(f"  ✓ fact_orders.csv saved ({len(orders_df)} rows)")
+    
+    payments_df.to_csv(output_dir / "fact_payments.csv", index=False)
+    print(f"  ✓ fact_payments.csv saved ({len(payments_df)} rows)")
+    
+    refunds_df.to_csv(output_dir / "fact_refunds.csv", index=False)
+    print(f"  ✓ fact_refunds.csv saved ({len(refunds_df)} rows)")
+    
+    daily_df.to_csv(output_dir / "fact_order_daily.csv", index=False)
+    print(f"  ✓ fact_order_daily.csv saved ({len(daily_df)} rows)")
+    
+    print(f"\nFiles saved to: {output_dir.absolute()}")
+
+
 def run_transformation():
     print("Fetching events from MongoDB...")
     ORDER_TYPES = ["historical_order", "order_created", "order_updated"]
@@ -200,6 +220,9 @@ def run_transformation():
     print(f"  Total gross revenue: ${daily_df['gross_revenue'].sum():,.2f}")
     print(f"  Total refunds: ${daily_df['total_refunds'].sum():,.2f}")
     print(f"  Total net revenue: ${daily_df['net_revenue'].sum():,.2f}")
+    
+    # Save to CSV files
+    save_dataframes(orders_df, payments_df, refunds_df, daily_df)
 
     return orders_df, payments_df, refunds_df, daily_df
 

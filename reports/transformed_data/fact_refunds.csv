@@ -1,0 +1,2 @@
+refund_id,order_id,payment_id,refund_amount,refund_reason,refund_type,refund_date,event_id,vendor
+,,,25000.0,damaged,,,1cafb4418ad8bd944475f39fea3484998a67f1995fe378a3d7b2ed13cf35d474,unknown
